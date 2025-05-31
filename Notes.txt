@@ -11,3 +11,10 @@ This file acts as a log of the progress I have made each day and what is next in
 - NEXT UP: I will create data persistance by saving the contents in a database every fixed amount of time.
 
 30/05/25:
+- We are creating 3 main classes:
+    - RedisServer class which will basically run and shut down the server.
+    - RedisCommandHandler class which will get commands from redis client and process them. 
+    - RedisDatabase class which will execute the commands identified by the command handler and return a proper RESP response.
+    - RedisServer -> (Redis Client ->) RedisCommandHandler -> RedisDatabase -> RedisCommandHandler -> Redis Client
+
+- 
