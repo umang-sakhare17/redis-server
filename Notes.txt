@@ -1,0 +1,13 @@
+This file acts as a log of the progress I have made each day and what is next in the pipeline.
+
+29/05/25: 
+- Setup the basic file structure for the code.
+- Created a main function to run the program. Here we are creating an object of the class RedisServer which runs the whole thing.
+- Defined some basic functionality in RedisServer.cpp and created a header file for it.
+- Header file basically contains a template for all that will go in the cpp file.
+- Did some socket programming to get the server to connect to a port. 
+    - Involving creating a socket, binding it to a port and listening on it.
+- Additionally also defined a function to shut down the server if the socket ever dies.
+- NEXT UP: I will create data persistance by saving the contents in a database every fixed amount of time.
+
+30/05/25:
