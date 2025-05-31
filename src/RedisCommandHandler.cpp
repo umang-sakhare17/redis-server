@@ -1,6 +1,7 @@
 #include <vector>
 #include <sstream>
-
+#include <algorithm>
+#include <../include/RedisCommandHandler.h>
 /*
 RESP Parser:
  *2\r\n$4\r\n\PING\r\n$4\r\nTEST\r\n
@@ -11,7 +12,6 @@ RESP Parser:
  similarly followed by TEST
 */
 
-// You have a function that returns a vector, takes string input from client
 std::vector<std::string> parseRespCommand(const std::string &input) {
     // First we check if it is empty
     std::vector<std::string> tokens;
@@ -61,4 +61,22 @@ std::vector<std::string> parseRespCommand(const std::string &input) {
     return tokens;
 }
 
+// Initiate command handler
+RedisCommandHandler::RedisCommandHandler(){}
 
+// Process the incoming command
+std::string RedisCommandHandler::processCommand(const std::string& commandLine) {
+     // User the RESP parser
+     auto tokens = parseRespCommand(commandLine);
+     if(tokens.empty()) return "Error: Empty Command\r\n";
+
+     std::string cmd = tokens[0];
+     std:transform(cmd.begin(), cmd.end(), cmd.begin(), ::toupper);
+     std::ostringstream response;
+
+     // Connect to database
+
+     // Run commands
+
+     return response.str();
+}
