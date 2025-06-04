@@ -17,4 +17,10 @@ This file acts as a log of the progress I have made each day and what is next in
     - RedisDatabase class which will execute the commands identified by the command handler and return a proper RESP response.
     - RedisServer -> (Redis Client ->) RedisCommandHandler -> RedisDatabase -> RedisCommandHandler -> Redis Client
 
-- 
+- Created a parser function that takes RESP input and parses it into executable commands.
+- Created a command that executes the parser and the following commands.
+- NEXT UP: Test the parser and implement the database side of things.
+
+04/06/25:
+- Wanted to verify the logic behind parseRespCommand().
+- Wrote dummy test file that executes the logic and tests for corner cases.

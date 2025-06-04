@@ -34,12 +34,12 @@ std::vector<std::string> parseRespCommand(const std::string &input) {
 
     size_t pos = 0;
     // Expect '*' followed by number of elements
-    if (input[pos] != 0) return tokens;
-    pos++;
+    if (input[pos] != '*') return tokens; // ensure that the string begins with * as per RESP
+    pos++; // move past '*'
 
-    // crlf = Carriage Return (\r), Line Feed (\n)
+    // Find first position for crlf
     size_t crlf = input.find("\r\n", pos);
-    if(crlf == std::string::npos) return tokens;
+    if(crlf == std::string::npos) return tokens; // if crlf not found, return token
 
     int numElements = std::stoi(input.substr(pos, crlf - pos));
     pos = crlf + 2; // skip ahead two characters \r and \n
