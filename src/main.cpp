@@ -1,6 +1,5 @@
 #include <string>
 #include "../include/RedisServer.h"
-#include "RedisServer.cpp"
 #include <thread>
 #include <chrono>
 
