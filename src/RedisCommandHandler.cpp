@@ -2,7 +2,7 @@
 #include <sstream>
 #include <algorithm>
 #include "../include/RedisCommandHandler.h"
-#include <iostream>
+#include <iostream> // For debugging
 /*
 RESP Parser:
  *2\r\n$4\r\n\PING\r\n$4\r\nTEST\r\n
@@ -67,20 +67,22 @@ RedisCommandHandler::RedisCommandHandler(){}
 
 // Process the incoming command
 std::string RedisCommandHandler::processCommand(const std::string& commandLine) {
-     // User the RESP parser
-     auto tokens = parseRespCommand(commandLine);
-     if(tokens.empty()) return "Error: Empty Command\r\n";
+    // User the RESP parser
+    auto tokens = parseRespCommand(commandLine);
+    if(tokens.empty()) return "Error: Empty Command\r\n";
 
+    // Debugging code
     for (auto& t: tokens) {
         std::cout << t << "\n";
     }
-     std::string cmd = tokens[0];
-     std:transform(cmd.begin(), cmd.end(), cmd.begin(), ::toupper);
-     std::ostringstream response;
 
-     // Connect to database
+    std::string cmd = tokens[0];
+    std:transform(cmd.begin(), cmd.end(), cmd.begin(), ::toupper);
+    std::ostringstream response;
 
-     // Run commands
+    // Connect to database
 
-     return response.str();
+    // Run commands
+
+    return response.str();
 }

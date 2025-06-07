@@ -27,3 +27,6 @@ This file acts as a log of the progress I have made each day and what is next in
 
 07/06/25
 - Start off by integrating the command handler in the redis server file
+- Made make file to build the whole project
+- Did bug fixing to sucessfully build
+- NEXT UP: Write code to implement RedisDatabase
