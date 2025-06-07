@@ -24,3 +24,6 @@ This file acts as a log of the progress I have made each day and what is next in
 04/06/25:
 - Wanted to verify the logic behind parseRespCommand().
 - Wrote dummy test file that executes the logic and tests for corner cases.
+
+07/06/25
+- Start off by integrating the command handler in the redis server file

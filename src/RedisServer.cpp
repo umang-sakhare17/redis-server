@@ -1,8 +1,12 @@
 #include "../include/RedisServer.h"
+#include "../include/RedisCommandHandler.h"
 #include <unistd.h>
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <vector>
+#include <thread>
+#include <cstring>
 
 static RedisServer* globalServer = nullptr;
 
@@ -44,4 +48,38 @@ server_socket = socket(AF_INET, SOCK_STREAM, 0);
     }
 
     std::cout << "Redis Server Listening on Port " << port << "\n";
+
+    std::vector<std::thread> threads;
+    RedisCommandHandler cmdHandler;
+
+    while (running)
+    {
+        // Accept incoming connection from client and create a new fd/socket for it
+        int client_socket = accept(server_socket, nullptr, nullptr); // server_socket is where all the connection requests get queued
+        if (client_socket < 0) { // Unsuccessful connection
+            if (running) {
+                std::cerr << "Error Accepting Client Connection\n";
+                break;
+            }    
+        }
+        
+        threads.emplace_back([client_socket, &cmdHandler](){
+            char buffer[1024];
+            while(true) { // Keep listening to requests coming from client
+                memset(buffer, 0, sizeof(buffer));
+                int bytes = recv(client_socket, buffer, sizeof(buffer) - 1, 0); // Receive byte data
+                if (bytes <= 0) break; // If nothing comes through break out of the loop
+                std::string request(buffer, bytes);
+                std::string response = cmdHandler.processCommand(request); // Process request
+                send(client_socket, response.c_str(), response.size(), 0); // Send response back to client
+            }
+            close(client_socket);
+
+        });
+    }
+    for (auto& t: threads) {
+        if (t.joinable()) t.join();
+    }
+
+    // Shutdown
 }
